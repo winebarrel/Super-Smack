@@ -25,6 +25,7 @@ using namespace std;
 #include <vector>
 #include <time.h>
 #include <stdlib.h>
+#include <string.h>
 
 extern const char* datadir;
 
