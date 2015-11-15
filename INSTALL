@@ -7,7 +7,7 @@ if you don't, keep only the one you have. You may need to specify the
 directory explicitly if your client libraries are installed in some
 unusual location, eg
 
-./configure --with-mysql=/opt/mysql
+./configure --with-mysql --with-mysql-lib=/opt/mysql
 
 If you want to have different locations for the examples directory and/or
 data directory, you should use --with-smacks-dir and --with-datadir
