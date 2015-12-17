@@ -19,17 +19,12 @@ MySQL Super Smack is a benchmarking, stress testing, and load generation tool fo
 %setup -q
 
 %build
-%configure --with-mysql --with-mysql-lib=/usr/lib64
-make %{?_smp_mflags}
+%configure --with-mysql --with-mysql-lib=$(mysql_config --variable=pkglibdir)
+make
 
 %install
 rm -rf %{buildroot}
-make install DESTDIR=%{buildroot}
-mkdir -p %{buildroot}/var
-mv /var/smack-data %{buildroot}/var
-chmod 777 %{buildroot}/var/smack-data
-mkdir -p %{buildroot}/usr/share
-mv /usr/share/smacks %{buildroot}/usr/share
+make install DESTDIR=%{buildroot} DATADIR=%{buildroot}/var/smack-data SMACKS_DIR=%{buildroot}/usr/share/smacks
 
 %clean
 rm -rf %{buildroot}
