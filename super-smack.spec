@@ -1,5 +1,5 @@
 Name:		super-smack
-Version:	1.3.2
+Version:	1.3.3
 Release:	2%{?dist}
 Summary:	MySQL Super Smack is a benchmarking, stress testing, and load generation tool for MySQL.
 
