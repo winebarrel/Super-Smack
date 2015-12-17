@@ -6,7 +6,8 @@ Summary:	MySQL Super Smack is a benchmarking, stress testing, and load generatio
 Group:		Development/Tools
 License:	GPLv2
 URL:		https://github.com/winebarrel/super-smack
-Source0:	super-smack-1.3.2.tar.gz
+# https://github.com/winebarrel/super-smack/archive/1.3.3.tar.gz
+Source0:	super-smack-1.3.3.tar.gz
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 BuildRequires:	gcc-c++ bison flex
