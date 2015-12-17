@@ -34,4 +34,5 @@ rm -rf %{buildroot}
 /var/smack-data
 %dir /usr/share/smacks
 /usr/share/smacks/
-/usr/bin/
+/usr/bin/gen-data
+/usr/bin/super-smack
