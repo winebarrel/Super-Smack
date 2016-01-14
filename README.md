@@ -4,7 +4,7 @@ The official Super Smack project seems to be abandoned. This version
 includes a few small changes to allow it to compile properly with
 newer versions of g++. Specifically, it fixes compilation on CentOS 5.7.
 
-                     README for MySQL Super Smack
+# README for MySQL Super Smack
 
 Super Smack is a database benchmarking tool. It currently supports
 MySQL and PosgreSQL, and has some initial infrastructure for
