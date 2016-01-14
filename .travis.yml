@@ -7,5 +7,7 @@ addons:
       - flex
       - automake
 script:
+  - aclocal
+  - autoconf
   - ./configure --with-mysql --with-mysql-lib=$(mysql_config --variable=pkglibdir)
   - make
