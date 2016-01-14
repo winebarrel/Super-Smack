@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/winebarrel/super-smack.svg?branch=master)](https://travis-ci.org/winebarrel/super-smack)
+
 The official Super Smack project seems to be abandoned. This version
 includes a few small changes to allow it to compile properly with
 newer versions of g++. Specifically, it fixes compilation on CentOS 5.7.
