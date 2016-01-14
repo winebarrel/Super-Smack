@@ -1,9 +1,11 @@
 language: cpp
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y bison
-  - sudo apt-get install -y flex
-  - sudo apt-get upgrade -y automake
+sudo: false
+addons:
+  apt:
+    packages:
+      - bison
+      - flex
+      - automake
 script:
   - ./configure --with-mysql --with-mysql-lib=$(mysql_config --variable=pkglibdir)
   - make
