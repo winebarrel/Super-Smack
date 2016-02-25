@@ -5,10 +5,9 @@ addons:
     packages:
       - bison
       - flex
-      - automake1.11
+      - automake1.4
 script:
   - aclocal
   - autoconf
   - ./configure --with-mysql --with-mysql-lib=$(mysql_config --variable=pkglibdir)
-  - aclocal
   - make
