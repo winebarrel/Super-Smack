@@ -1,11 +1,18 @@
+dist: trusty
 language: cpp
-sudo: false
+sudo: required
 addons:
   apt:
     packages:
       - bison
       - flex
-      - automake1.4
+before_script:
+  - wget ftp://ftp.gnu.org/gnu/automake/automake-1.4-p6.tar.gz
+  - tar zxvf automake-1.4-p6.tar.gz
+  - cd automake-1.4-p6
+  - ./configure
+  - make
+  - sudo make install
 script:
   - aclocal
   - autoconf
