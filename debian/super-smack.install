@@ -1,0 +1,3 @@
+src/super-smack usr/bin
+src/gen-data usr/bin
+smacks/* /usr/share/smacks
