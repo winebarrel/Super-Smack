@@ -11,17 +11,17 @@
 # PARTICULAR PURPOSE.
 
 # Copyright (C) 2000 MySQL AB & MySQL Finland AB & TCX DataKonsult AB
-# 
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
@@ -82,9 +82,9 @@ LEX = flex
 LN_S = ln -s
 MAKEINFO = makeinfo
 MYSQL_INCLUDE = -I/usr/local/include/mysql
-MYSQL_LIB = -L/usr/local/lib/mysql -lmysqlclient 
-ORACLE_INCLUDE = 
-ORACLE_LIB = 
+MYSQL_LIB = -L/usr/local/lib/mysql -lmysqlclient
+ORACLE_INCLUDE =
+ORACLE_LIB =
 PACKAGE = super-smack
 PGSQL_INCLUDE = -I/usr/local/pgsql/include
 PGSQL_LIB = -L/usr/local/pgsql/lib -lpq
@@ -100,7 +100,7 @@ DATADIR = /var/smack-data
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = 
+CONFIG_CLEAN_FILES =
 DIST_COMMON =  README ./stamp-h.in INSTALL Makefile.am Makefile.in \
 acconfig.h acinclude.m4 aclocal.m4 config.guess config.h.in config.sub \
 configure configure.in install-sh missing mkinstalldirs
@@ -112,7 +112,7 @@ TAR = tar
 GZIP_ENV = --best
 all: all-redirect
 .SUFFIXES:
-$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && $(AUTOMAKE) --foreign --include-deps Makefile
 
 Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
@@ -392,3 +392,38 @@ dist-hook:
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
+
+UBUNTU_IMAGE          = docker-super-smack-build-xenial
+CENTOS_IMAGE          = docker-super-smack-build-centos7
+
+.PHONY: docker/buil/centos7
+docker/build/centos7: etc/Dockerfile.centos7
+	docker build -f etc/Dockerfile.centos7 -t $(CENTOS_IMAGE) .
+
+docker/build/xenial: etc/Dockerfile.xenial
+	docker build -f etc/Dockerfile.xenial -t $(UBUNTU_IMAGE) .
+
+.PHONY: rpm
+rpm:
+	docker run --rm -v $(shell pwd):/tmp/src $(CENTOS_IMAGE) make -C /tmp/src rpm/docker
+
+.PHONY: deb
+deb:
+	docker run --rm -v $(shell pwd):/tmp/src $(UBUNTU_IMAGE) make -C /tmp/src deb/docker
+
+.PHONY: rpm/docker
+rpm/docker:
+	mkdir -p pkg
+	cd ../ && tar zcf super-smack.tar.gz src --exclude pkg
+	mv ../super-smack.tar.gz /root/rpmbuild/SOURCES/
+	cp super-smack.spec /root/rpmbuild/SPECS/
+	rpmbuild -ba /root/rpmbuild/SPECS/super-smack.spec
+	mv /root/rpmbuild/RPMS/x86_64/super-smack-*.rpm pkg/
+	mv /root/rpmbuild/SRPMS/super-smack-*.src.rpm pkg/
+
+.PHONY: deb/docker
+deb/docker:
+	mkdir -p pkg
+	cd ../ && cp -r src /tmp/build
+	cd /tmp/build && dpkg-buildpackage -us -uc
+	mv ../super-smack_* /tmp/src/pkg/
