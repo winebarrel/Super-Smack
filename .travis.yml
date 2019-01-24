@@ -10,7 +10,7 @@ before_install:
   - cd automake-1.4-p6
   - ./configure
   - make
-  - make install
+  - sudo make install
 script:
   - ./configure --with-mysql --with-mysql-lib=$(mysql_config --variable=pkglibdir)
   - make
