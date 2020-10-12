@@ -1,3 +1,5 @@
+**forked from [tmountain/Super-Smack](https://github.com/tmountain/Super-Smack)**
+
 [![Build Status](https://travis-ci.org/winebarrel/super-smack.svg?branch=master)](https://travis-ci.org/winebarrel/super-smack)
 
 The official Super Smack project seems to be abandoned. This version
